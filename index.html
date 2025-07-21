@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض الكتب - Book Gallery</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'almarai': ['Almarai', 'sans-serif'],
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'book-primary': '#E94E1B',
+                        'book-text': '#393D4A',
+                        'book-text-secondary': 'rgba(40, 40, 40, 0.48)',
+                        'book-bg': '#FFFFFF',
+                        'book-shadow': '#F5F5F5',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom styles for slider */
+        .book-slider {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .book-slides {
+            display: flex;
+            transform: translateX(0);
+            transition: transform 0.5s ease;
+        }
+        
+        .book-slide {
+            min-width: 25%;
+            padding: 0 11px;
+        }
+        
+        /* Custom dot styles */
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8.685px;
+            margin-top: 40px;
+            width: 192px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 8px;
+        }
+        
+        .dot {
+            width: 17px;
+            height: 17px;
+            background-color: #DEDEDE;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            width: 52px;
+            background-color: #E94E1B;
+        }
+        
+        /* Navigation arrows */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 49px;
+            height: 26px;
+            background-color: #EFEFEF;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .nav-arrow:hover {
+            background-color: #D1D5DB;
+        }
+        
+        .nav-arrow.prev {
+            left: -24px;
+        }
+        
+        .nav-arrow.next {
+            right: -24px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .book-slide {
+                min-width: 33.333%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .book-slide {
+                min-width: 50%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .book-slide {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Book Gallery Section -->
+    <section class="bg-white" style="padding: 56px 51px 33px 51px;">
+        <div class="max-w-screen-xl mx-auto relative">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-16">
+                <button class="bg-white border border-book-primary text-book-primary font-almarai font-bold text-base rounded flex items-center justify-center hover:bg-book-primary hover:text-white transition-colors"
+                        style="width: 128px; height: 36px; padding: 5px 8px; gap: 8px;">
+                    عرض المزيد
+                </button>
+                <h2 class="font-almarai font-bold text-book-primary leading-[167%]" style="font-size: 26px;">
+                    معرض الكتب
+                </h2>
+            </div>
+            
+            <!-- Books Slider -->
+            <div class="book-slider relative" style="padding: 0 80px;">
+                <!-- Navigation Arrows -->
+                <button class="nav-arrow prev" onclick="moveSlider(-1)">
+                    <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 14.45C8 14.85 7.84 15.23 7.56 15.51L0.58 22.45C0.3 22.75 -0.08 22.89 -0.46 22.89C-0.86 22.89 -1.24 22.75 -1.54 22.45C-2.12 21.85 -2.12 20.91 -1.52 20.33L4.38 14.45L-1.52 8.57C-2.12 7.99 -2.12 7.03 -1.54 6.45C-0.94 5.85 0 5.85 0.58 6.45L7.56 13.39C7.84 13.67 8 14.05 8 14.45Z" 
+                              fill="#8D8D8D" transform="rotate(180 4 14.45)"/>
+                    </svg>
+                </button>
+                
+                <button class="nav-arrow next" onclick="moveSlider(1)">
+                    <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 14.44C8 14.04 7.84 13.66 7.56 13.38L0.58 6.44C0.3 6.14 -0.08 6 -0.46 6C-0.86 6 -1.24 6.14 -1.54 6.44C-2.12 7.04 -2.12 7.98 -1.52 8.56L4.38 14.44L-1.52 20.32C-2.12 20.9 -2.12 21.86 -1.54 22.44C-0.94 23.04 0 23.04 0.58 22.44L7.56 15.5C7.84 15.22 8 14.84 8 14.44Z" 
+                              fill="#8D8D8D"/>
+                    </svg>
+                </button>
+                
+                <!-- Books Container -->
+                <div class="book-slides" id="bookSlides">
+                    <!-- Book Card 1 -->
+                    <div class="book-slide">
+                        <div class="bg-white rounded border relative mx-auto" style="max-width: 318px; height: 545px;">
+                            <!-- Book Image Container -->
+                            <div class="relative" style="padding: 55px 21px 0 21px;">
+                                <div class="relative rounded-lg flex items-center justify-center mb-3.5" 
+                                     style="height: 299px; background: rgba(233, 78, 27, 0.84);">
+                                    <img src="https://api.builder.io/api/v1/image/assets/TEMP/4d79511b9ff81ad595c964dd3a2c0fdd332518fe?width=428"
+                                         alt="العادات السبع للناس الأكثر فاعلية"
+                                         class="absolute rounded"
+                                         style="width: 214px; height: 303px; top: 16px; left: 52px; object-fit: cover;">
+                                </div>
+                                
+                                <!-- Book Details -->
+                                <div class="text-right">
+                                    <div class="mb-4">
+                                        <h3 class="font-almarai font-bold text-book-text mb-2" 
+                                            style="font-size: 18px; line-height: 25px;">
+                                            العادات الس��ع للناس الأكثر فاعلية
+                                        </h3>
+                                        <p class="font-poppins text-book-text-secondary mb-4" 
+                                           style="font-size: 16px; letter-spacing: 0.16px;">
+                                            Stephen R. Covey
+                                        </p>
+                                        
+                                        <!-- Pricing -->
+                                        <div class="flex items-center justify-end gap-3 mb-4" style="height: 27px;">
+                                            <span class="font-almarai text-xs line-through" style="color: #060D11;">
+                                                بدل من 180
+                                            </span>
+                                            <span class="font-almarai font-bold text-book-primary" 
+                                                  style="font-size: 22px; line-height: 180%;">
+                                                EGP 75
+                                            </span>
+                                            <span class="font-almarai font-bold" 
+                                                  style="font-size: 16px; line-height: 180%; color: #060D11;">
+                                                السعر
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Add to Cart Button -->
+                                    <button class="w-full bg-book-primary hover:bg-opacity-90 text-white font-almarai font-bold rounded-lg flex items-center justify-center gap-2 transition-colors"
+                                            style="height: 50px; padding: 16px; font-size: 14px;">
+                                        <svg width="24" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.28571 5H18.7251C20.0903 5 21.0542 6.33739 20.6225 7.63246L18.9558 12.6325C18.6836 13.4491 17.9193 14 17.0585 14H6.57142M5.28571 5L5.24531 4.71716C5.10455 3.73186 4.26071 3 3.26541 3H2.5M5.28571 5L6.57142 14M6.57142 14L6.75469 15.2828C6.89545 16.2681 7.73929 17 8.73459 17H17.5M17.5 17C16.3954 17 15.5 17.8954 15.5 19C15.5 20.1046 16.3954 21 17.5 21C18.6046 21 19.5 20.1046 19.5 19C19.5 17.8954 18.6046 17 17.5 17ZM11.5 19C11.5 20.1046 10.6046 21 9.5 21C8.39543 21 7.5 20.1046 7.5 19C7.5 17.8954 8.39543 17 9.5 17C10.6046 17 11.5 17.8954 11.5 19Z" 
+                                                  stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        أضف إلى السلة
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book Card 2 -->
+                    <div class="book-slide">
+                        <div class="bg-white rounded border relative mx-auto" style="max-width: 318px; height: 545px;">
+                            <div class="relative" style="padding: 55px 21px 0 21px;">
+                                <div class="relative rounded-lg flex items-center justify-center mb-3.5" 
+                                     style="height: 299px; background: rgba(233, 78, 27, 0.84);">
+                                    <img src="https://api.builder.io/api/v1/image/assets/TEMP/4d79511b9ff81ad595c964dd3a2c0fdd332518fe?width=428"
+                                         alt="العادات السبع للناس الأكثر فاعلية"
+                                         class="absolute rounded"
+                                         style="width: 214px; height: 303px; top: 16px; left: 52px; object-fit: cover;">
+                                </div>
+                                <div class="text-right">
+                                    <div class="mb-4">
+                                        <h3 class="font-almarai font-bold text-book-text mb-2" 
+                                            style="font-size: 18px; line-height: 25px;">
+                                            العادات السبع للناس الأكثر فاعلية
+                                        </h3>
+                                        <p class="font-poppins text-book-text-secondary mb-4" 
+                                           style="font-size: 16px; letter-spacing: 0.16px;">
+                                            Stephen R. Covey
+                                        </p>
+                                        <div class="flex items-center justify-end gap-3 mb-4" style="height: 27px;">
+                                            <span class="font-almarai text-xs line-through" style="color: #060D11;">بدل من 180</span>
+                                            <span class="font-almarai font-bold text-book-primary" style="font-size: 22px; line-height: 180%;">EGP 75</span>
+                                            <span class="font-almarai font-bold" style="font-size: 16px; line-height: 180%; color: #060D11;">السعر</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full bg-book-primary hover:bg-opacity-90 text-white font-almarai font-bold rounded-lg flex items-center justify-center gap-2 transition-colors"
+                                            style="height: 50px; padding: 16px; font-size: 14px;">
+                                        <svg width="24" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.28571 5H18.7251C20.0903 5 21.0542 6.33739 20.6225 7.63246L18.9558 12.6325C18.6836 13.4491 17.9193 14 17.0585 14H6.57142M5.28571 5L5.24531 4.71716C5.10455 3.73186 4.26071 3 3.26541 3H2.5M5.28571 5L6.57142 14M6.57142 14L6.75469 15.2828C6.89545 16.2681 7.73929 17 8.73459 17H17.5M17.5 17C16.3954 17 15.5 17.8954 15.5 19C15.5 20.1046 16.3954 21 17.5 21C18.6046 21 19.5 20.1046 19.5 19C19.5 17.8954 18.6046 17 17.5 17ZM11.5 19C11.5 20.1046 10.6046 21 9.5 21C8.39543 21 7.5 20.1046 7.5 19C7.5 17.8954 8.39543 17 9.5 17C10.6046 17 11.5 17.8954 11.5 19Z" 
+                                                  stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        أضف إلى السلة
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book Card 3 -->
+                    <div class="book-slide">
+                        <div class="bg-white rounded border relative mx-auto" style="max-width: 318px; height: 545px;">
+                            <div class="relative" style="padding: 55px 21px 0 21px;">
+                                <div class="relative rounded-lg flex items-center justify-center mb-3.5" 
+                                     style="height: 299px; background: rgba(233, 78, 27, 0.84);">
+                                    <img src="https://api.builder.io/api/v1/image/assets/TEMP/4d79511b9ff81ad595c964dd3a2c0fdd332518fe?width=428"
+                                         alt="العادات السبع للناس الأكثر فاعلية"
+                                         class="absolute rounded"
+                                         style="width: 214px; height: 303px; top: 16px; left: 52px; object-fit: cover;">
+                                </div>
+                                <div class="text-right">
+                                    <div class="mb-4">
+                                        <h3 class="font-almarai font-bold text-book-text mb-2" 
+                                            style="font-size: 18px; line-height: 25px;">
+                                            العادات السبع للناس الأكثر فاعلية
+                                        </h3>
+                                        <p class="font-poppins text-book-text-secondary mb-4" 
+                                           style="font-size: 16px; letter-spacing: 0.16px;">
+                                            Stephen R. Covey
+                                        </p>
+                                        <div class="flex items-center justify-end gap-3 mb-4" style="height: 27px;">
+                                            <span class="font-almarai text-xs line-through" style="color: #060D11;">بدل من 180</span>
+                                            <span class="font-almarai font-bold text-book-primary" style="font-size: 22px; line-height: 180%;">EGP 75</span>
+                                            <span class="font-almarai font-bold" style="font-size: 16px; line-height: 180%; color: #060D11;">السعر</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full bg-book-primary hover:bg-opacity-90 text-white font-almarai font-bold rounded-lg flex items-center justify-center gap-2 transition-colors"
+                                            style="height: 50px; padding: 16px; font-size: 14px;">
+                                        <svg width="24" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.28571 5H18.7251C20.0903 5 21.0542 6.33739 20.6225 7.63246L18.9558 12.6325C18.6836 13.4491 17.9193 14 17.0585 14H6.57142M5.28571 5L5.24531 4.71716C5.10455 3.73186 4.26071 3 3.26541 3H2.5M5.28571 5L6.57142 14M6.57142 14L6.75469 15.2828C6.89545 16.2681 7.73929 17 8.73459 17H17.5M17.5 17C16.3954 17 15.5 17.8954 15.5 19C15.5 20.1046 16.3954 21 17.5 21C18.6046 21 19.5 20.1046 19.5 19C19.5 17.8954 18.6046 17 17.5 17ZM11.5 19C11.5 20.1046 10.6046 21 9.5 21C8.39543 21 7.5 20.1046 7.5 19C7.5 17.8954 8.39543 17 9.5 17C10.6046 17 11.5 17.8954 11.5 19Z" 
+                                                  stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        أضف إلى السلة
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book Card 4 -->
+                    <div class="book-slide">
+                        <div class="bg-white rounded border relative mx-auto" style="max-width: 318px; height: 545px;">
+                            <div class="relative" style="padding: 55px 21px 0 21px;">
+                                <div class="relative rounded-lg flex items-center justify-center mb-3.5" 
+                                     style="height: 299px; background: rgba(233, 78, 27, 0.84);">
+                                    <img src="https://api.builder.io/api/v1/image/assets/TEMP/4d79511b9ff81ad595c964dd3a2c0fdd332518fe?width=428"
+                                         alt="العادات السبع للناس الأكثر فاعلية"
+                                         class="absolute rounded"
+                                         style="width: 214px; height: 303px; top: 16px; left: 52px; object-fit: cover;">
+                                </div>
+                                <div class="text-right">
+                                    <div class="mb-4">
+                                        <h3 class="font-almarai font-bold text-book-text mb-2" 
+                                            style="font-size: 18px; line-height: 25px;">
+                                            العادات السبع للناس الأكثر فاعلية
+                                        </h3>
+                                        <p class="font-poppins text-book-text-secondary mb-4" 
+                                           style="font-size: 16px; letter-spacing: 0.16px;">
+                                            Stephen R. Covey
+                                        </p>
+                                        <div class="flex items-center justify-end gap-3 mb-4" style="height: 27px;">
+                                            <span class="font-almarai text-xs line-through" style="color: #060D11;">بدل من 180</span>
+                                            <span class="font-almarai font-bold text-book-primary" style="font-size: 22px; line-height: 180%;">EGP 75</span>
+                                            <span class="font-almarai font-bold" style="font-size: 16px; line-height: 180%; color: #060D11;">السعر</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full bg-book-primary hover:bg-opacity-90 text-white font-almarai font-bold rounded-lg flex items-center justify-center gap-2 transition-colors"
+                                            style="height: 50px; padding: 16px; font-size: 14px;">
+                                        <svg width="24" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.28571 5H18.7251C20.0903 5 21.0542 6.33739 20.6225 7.63246L18.9558 12.6325C18.6836 13.4491 17.9193 14 17.0585 14H6.57142M5.28571 5L5.24531 4.71716C5.10455 3.73186 4.26071 3 3.26541 3H2.5M5.28571 5L6.57142 14M6.57142 14L6.75469 15.2828C6.89545 16.2681 7.73929 17 8.73459 17H17.5M17.5 17C16.3954 17 15.5 17.8954 15.5 19C15.5 20.1046 16.3954 21 17.5 21C18.6046 21 19.5 20.1046 19.5 19C19.5 17.8954 18.6046 17 17.5 17ZM11.5 19C11.5 20.1046 10.6046 21 9.5 21C8.39543 21 7.5 20.1046 7.5 19C7.5 17.8954 8.39543 17 9.5 17C10.6046 17 11.5 17.8954 11.5 19Z" 
+                                                  stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        أضف إلى السلة
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book Card 5 -->
+                    <div class="book-slide">
+                        <div class="bg-white rounded border relative mx-auto" style="max-width: 318px; height: 545px;">
+                            <div class="relative" style="padding: 55px 21px 0 21px;">
+                                <div class="relative rounded-lg flex items-center justify-center mb-3.5" 
+                                     style="height: 299px; background: rgba(233, 78, 27, 0.84);">
+                                    <img src="https://api.builder.io/api/v1/image/assets/TEMP/4d79511b9ff81ad595c964dd3a2c0fdd332518fe?width=428"
+                                         alt="العادات السبع للناس الأكثر فاعلية"
+                                         class="absolute rounded"
+                                         style="width: 214px; height: 303px; top: 16px; left: 52px; object-fit: cover;">
+                                </div>
+                                <div class="text-right">
+                                    <div class="mb-4">
+                                        <h3 class="font-almarai font-bold text-book-text mb-2" 
+                                            style="font-size: 18px; line-height: 25px;">
+                                            العادات السبع للناس الأكثر فاعلية
+                                        </h3>
+                                        <p class="font-poppins text-book-text-secondary mb-4" 
+                                           style="font-size: 16px; letter-spacing: 0.16px;">
+                                            Stephen R. Covey
+                                        </p>
+                                        <div class="flex items-center justify-end gap-3 mb-4" style="height: 27px;">
+                                            <span class="font-almarai text-xs line-through" style="color: #060D11;">بدل من 180</span>
+                                            <span class="font-almarai font-bold text-book-primary" style="font-size: 22px; line-height: 180%;">EGP 75</span>
+                                            <span class="font-almarai font-bold" style="font-size: 16px; line-height: 180%; color: #060D11;">السعر</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full bg-book-primary hover:bg-opacity-90 text-white font-almarai font-bold rounded-lg flex items-center justify-center gap-2 transition-colors"
+                                            style="height: 50px; padding: 16px; font-size: 14px;">
+                                        <svg width="24" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.28571 5H18.7251C20.0903 5 21.0542 6.33739 20.6225 7.63246L18.9558 12.6325C18.6836 13.4491 17.9193 14 17.0585 14H6.57142M5.28571 5L5.24531 4.71716C5.10455 3.73186 4.26071 3 3.26541 3H2.5M5.28571 5L6.57142 14M6.57142 14L6.75469 15.2828C6.89545 16.2681 7.73929 17 8.73459 17H17.5M17.5 17C16.3954 17 15.5 17.8954 15.5 19C15.5 20.1046 16.3954 21 17.5 21C18.6046 21 19.5 20.1046 19.5 19C19.5 17.8954 18.6046 17 17.5 17ZM11.5 19C11.5 20.1046 10.6046 21 9.5 21C8.39543 21 7.5 20.1046 7.5 19C7.5 17.8954 8.39543 17 9.5 17C10.6046 17 11.5 17.8954 11.5 19Z" 
+                                                  stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        أضف إلى السلة
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book Card 6 -->
+                    <div class="book-slide">
+                        <div class="bg-white rounded border relative mx-auto" style="max-width: 318px; height: 545px;">
+                            <div class="relative" style="padding: 55px 21px 0 21px;">
+                                <div class="relative rounded-lg flex items-center justify-center mb-3.5" 
+                                     style="height: 299px; background: rgba(233, 78, 27, 0.84);">
+                                    <img src="https://api.builder.io/api/v1/image/assets/TEMP/4d79511b9ff81ad595c964dd3a2c0fdd332518fe?width=428"
+                                         alt="العادات السبع للناس الأكثر فاعلية"
+                                         class="absolute rounded"
+                                         style="width: 214px; height: 303px; top: 16px; left: 52px; object-fit: cover;">
+                                </div>
+                                <div class="text-right">
+                                    <div class="mb-4">
+                                        <h3 class="font-almarai font-bold text-book-text mb-2" 
+                                            style="font-size: 18px; line-height: 25px;">
+                                            العادات السبع للناس الأكثر فاعلية
+                                        </h3>
+                                        <p class="font-poppins text-book-text-secondary mb-4" 
+                                           style="font-size: 16px; letter-spacing: 0.16px;">
+                                            Stephen R. Covey
+                                        </p>
+                                        <div class="flex items-center justify-end gap-3 mb-4" style="height: 27px;">
+                                            <span class="font-almarai text-xs line-through" style="color: #060D11;">بدل من 180</span>
+                                            <span class="font-almarai font-bold text-book-primary" style="font-size: 22px; line-height: 180%;">EGP 75</span>
+                                            <span class="font-almarai font-bold" style="font-size: 16px; line-height: 180%; color: #060D11;">السعر</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full bg-book-primary hover:bg-opacity-90 text-white font-almarai font-bold rounded-lg flex items-center justify-center gap-2 transition-colors"
+                                            style="height: 50px; padding: 16px; font-size: 14px;">
+                                        <svg width="24" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5.28571 5H18.7251C20.0903 5 21.0542 6.33739 20.6225 7.63246L18.9558 12.6325C18.6836 13.4491 17.9193 14 17.0585 14H6.57142M5.28571 5L5.24531 4.71716C5.10455 3.73186 4.26071 3 3.26541 3H2.5M5.28571 5L6.57142 14M6.57142 14L6.75469 15.2828C6.89545 16.2681 7.73929 17 8.73459 17H17.5M17.5 17C16.3954 17 15.5 17.8954 15.5 19C15.5 20.1046 16.3954 21 17.5 21C18.6046 21 19.5 20.1046 19.5 19C19.5 17.8954 18.6046 17 17.5 17ZM11.5 19C11.5 20.1046 10.6046 21 9.5 21C8.39543 21 7.5 20.1046 7.5 19C7.5 17.8954 8.39543 17 9.5 17C10.6046 17 11.5 17.8954 11.5 19Z" 
+                                                  stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        أضف إلى السلة
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slider Dots -->
+            <div class="slider-dots">
+                <div class="dot" onclick="goToSlide(0)"></div>
+                <div class="dot" onclick="goToSlide(1)"></div>
+                <div class="dot active" onclick="goToSlide(2)"></div>
+                <div class="dot" onclick="goToSlide(3)"></div>
+                <div class="dot" onclick="goToSlide(4)"></div>
+                <div class="dot" onclick="goToSlide(5)"></div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        let currentSlide = 2; // Start at slide 3 (active dot)
+        const totalSlides = 6;
+        const slidesContainer = document.getElementById('bookSlides');
+        const dots = document.querySelectorAll('.dot');
+        
+        function updateSlider() {
+            // Update slides position
+            const slideWidth = 25; // 25% for 4 slides visible
+            const translateX = -currentSlide * slideWidth;
+            slidesContainer.style.transform = `translateX(${translateX}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+        
+        function moveSlider(direction) {
+            currentSlide += direction;
+            
+            // Handle wrapping
+            if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            } else if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            }
+            
+            updateSlider();
+        }
+        
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateSlider();
+        }
+        
+        // Initialize slider
+        updateSlider();
+        
+        // Auto-slide functionality (optional)
+        setInterval(() => {
+            moveSlider(1);
+        }, 5000); // Change slide every 5 seconds
+    </script>
+</body>
+</html>
