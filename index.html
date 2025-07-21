@@ -56,6 +56,9 @@
     ></script>
 
     <style>
+      * {
+        border: 1px solid red !important;
+      }
       /* Custom styles for slick slider */
       .book-slider {
         position: relative;
@@ -289,7 +292,7 @@
           <div class="book-slides" id="bookSlides">
             <!-- Book Card 1 -->
             <div class="book-slide">
-              <div class="bg-white rounded border relative mx-auto book-card">
+              <div class="bg-white relative mx-auto book-card">
                 <!-- Book Image Container -->
                 <div class="relative book-image-container">
                   <div
@@ -364,7 +367,7 @@
 
             <!-- Book Card 2 -->
             <div class="book-slide">
-              <div class="bg-white rounded border relative mx-auto book-card">
+              <div class="bg-white relative mx-auto book-card">
                 <div class="relative book-image-container">
                   <div
                     class="relative rounded-lg flex items-center justify-center mb-3.5 book-image-bg"
@@ -430,7 +433,7 @@
 
             <!-- Book Card 3 -->
             <div class="book-slide">
-              <div class="bg-white rounded border relative mx-auto book-card">
+              <div class="bg-white relative mx-auto book-card">
                 <div class="relative book-image-container">
                   <div
                     class="relative rounded-lg flex items-center justify-center mb-3.5 book-image-bg"
@@ -496,7 +499,7 @@
 
             <!-- Book Card 4 -->
             <div class="book-slide">
-              <div class="bg-white rounded border relative mx-auto book-card">
+              <div class="bg-white relative mx-auto book-card">
                 <div class="relative book-image-container">
                   <div
                     class="relative rounded-lg flex items-center justify-center mb-3.5 book-image-bg"
@@ -562,7 +565,7 @@
 
             <!-- Book Card 5 -->
             <div class="book-slide">
-              <div class="bg-white rounded border relative mx-auto book-card">
+              <div class="bg-white relative mx-auto book-card">
                 <div class="relative book-image-container">
                   <div
                     class="relative rounded-lg flex items-center justify-center mb-3.5 book-image-bg"
@@ -628,7 +631,7 @@
 
             <!-- Book Card 6 -->
             <div class="book-slide">
-              <div class="bg-white rounded border relative mx-auto book-card">
+              <div class="bg-white relative mx-auto book-card">
                 <div class="relative book-image-container">
                   <div
                     class="relative rounded-lg flex items-center justify-center mb-3.5 book-image-bg"
@@ -736,9 +739,9 @@
               },
             ],
             prevArrow:
-              '<button class="slick-prev" type="button"><svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 14.45C8 14.85 7.84 15.23 7.56 15.51L0.58 22.45C0.3 22.75 -0.08 22.89 -0.46 22.89C-0.86 22.89 -1.24 22.75 -1.54 22.45C-2.12 21.85 -2.12 20.91 -1.52 20.33L4.38 14.45L-1.52 8.57C-2.12 7.99 -2.12 7.03 -1.54 6.45C-0.94 5.85 0 5.85 0.58 6.45L7.56 13.39C7.84 13.67 8 14.05 8 14.45Z" fill="#8D8D8D" transform="rotate(180 4 14.45)"/></svg></button>',
+              '<button class="slick-prev" type="button"><img src="/arrow-left.png" alt="Previous" class="w-4 h-4" /></button>',
             nextArrow:
-              '<button class="slick-next" type="button"><svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 14.44C8 14.04 7.84 13.66 7.56 13.38L0.58 6.44C0.3 6.14 -0.08 6 -0.46 6C-0.86 6 -1.24 6.14 -1.54 6.44C-2.12 7.04 -2.12 7.98 -1.52 8.56L4.38 14.44L-1.52 20.32C-2.12 20.9 -2.12 21.86 -1.54 22.44C-0.94 23.04 0 23.04 0.58 22.44L7.56 15.5C7.84 15.22 8 14.84 8 14.44Z" fill="#8D8D8D"/></svg></button>',
+              '<button class="slick-next" type="button"><img src="/arrow-right.png" alt="Next" class="w-4 h-4" /></button>',
           });
         }, 100);
       });
