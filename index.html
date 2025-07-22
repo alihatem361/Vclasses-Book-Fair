@@ -127,9 +127,9 @@
         display: flex !important;
         justify-content: center;
         align-items: center;
-        gap: 8.685px;
+        gap: 12px;
         margin-top: 40px !important;
-        width: 192px;
+        width: auto;
         margin-left: auto;
         margin-right: auto;
         padding: 8px;
@@ -138,33 +138,47 @@
       }
 
       .slick-dots li {
-        width: 17px !important;
-        height: 17px !important;
+        width: 20px !important;
+        height: 20px !important;
         margin: 0 !important;
         padding: 0 !important;
       }
 
       .slick-dots li button {
-        width: 17px !important;
-        height: 17px !important;
+        width: 20px !important;
+        height: 20px !important;
         padding: 0 !important;
-        background-color: #dedede !important;
-        border-radius: 0 !important;
+        background-color: #d1d5db !important;
+        border-radius: 50% !important;
         border: none !important;
         transition: all 0.3s ease;
         cursor: pointer;
         font-size: 0;
         line-height: 0;
         text-indent: -9999px;
+        opacity: 0.6;
       }
 
       .slick-dots li button:before {
         display: none !important;
       }
 
+      .slick-dots li button:hover {
+        opacity: 0.8;
+        transform: scale(1.1);
+      }
+
       .slick-dots li.slick-active button {
-        width: 52px !important;
+        width: 56px !important;
+        height: 20px !important;
         background-color: #e94e1b !important;
+        border-radius: 10px !important;
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .slick-dots li.slick-active button:hover {
+        transform: scale(1.05);
       }
 
       /* Book card styles */
