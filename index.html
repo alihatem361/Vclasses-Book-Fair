@@ -181,6 +181,11 @@
         transform: scale(1.05);
       }
 
+      /* Next li after slick-active has transparent background */
+      .slick-dots li.slick-active + li button {
+        background-color: transparent !important;
+      }
+
       /* Book card styles */
       .book-card {
         max-width: 318px;
@@ -722,16 +727,16 @@
             slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: true,
-            autoplaySpeed: 5000,
+            autoplaySpeed: 500000000,
             dots: true,
             arrows: true,
             infinite: true,
-            speed: 500,
+            speed: 5000000,
             cssEase: "ease",
             rtl: false, // Set to false for better compatibility
             responsive: [
               {
-                breakpoint: 1200,
+                breakpoint: 1200000,
                 settings: {
                   slidesToShow: 3,
                   slidesToScroll: 1,
